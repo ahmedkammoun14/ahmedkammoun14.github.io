@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ahmed Kammoun | Ingénieur Cloud & DevOps</title>
+<meta name="description" content="Ahmed Kammoun, ingénieur Cloud & DevOps (ENIS 2026) : systèmes distribués, orchestration Cloud/Edge, Kubernetes, OpenStack et IA appliquée. Disponible en CDI dès novembre 2026.">
+<meta name="author" content="Ahmed Kammoun">
+<meta property="og:title" content="Ahmed Kammoun | Ingénieur Cloud & DevOps">
+<meta property="og:description" content="Orchestration Cloud/Edge, Kubernetes, OpenStack et IA appliquée. Disponible en CDI dès novembre 2026.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#07061a">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>☁️</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@500;600;700;800&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#07061a;
+  --bg2:#0e0c2a;
+  --panel:rgba(20,17,58,.55);
+  --line:rgba(140,130,255,.16);
+  --text:#ecebff;
+  --muted:#a4a1c9;
+  --indigo:#5b4bff;
+  --pink:#ff3d8b;
+  --cyan:#2ee6f5;
+  --amber:#ffb836;
+  --grad:linear-gradient(90deg,var(--indigo),var(--pink),var(--cyan),var(--amber));
+  --radius:18px;
+  --head:'Syne',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --body:'DM Sans',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:80px}
+body{
+  font-family:var(--body);background:var(--bg);color:var(--text);
+  line-height:1.65;font-size:16px;overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:2px solid var(--cyan);outline-offset:3px;border-radius:6px}
+
+/* Scrollbar */
+::-webkit-scrollbar{width:10px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:linear-gradient(var(--indigo),var(--pink));border-radius:10px;border:2px solid var(--bg)}
+html{scrollbar-color:var(--indigo) var(--bg);scrollbar-width:thin}
+::selection{background:var(--pink);color:#fff}
+
+/* Fond : canvas + bruit */
+#particles{position:fixed;inset:0;z-index:0;pointer-events:none}
+.noise{
+  position:fixed;inset:-50%;z-index:1;pointer-events:none;opacity:.06;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation:grain 8s steps(10) infinite;
+}
+@keyframes grain{0%,100%{transform:translate(0,0)}20%{transform:translate(-5%,3%)}40%{transform:translate(3%,-4%)}60%{transform:translate(-3%,5%)}80%{transform:translate(4%,-2%)}}
+main,footer,nav{position:relative;z-index:2}
+main{overflow-x:clip}
+
+/* Curseur */
+.cursor-dot,.cursor-ring{position:fixed;top:0;left:0;pointer-events:none;z-index:9999;border-radius:50%;transform:translate(-50%,-50%);display:none}
+.cursor-dot{width:8px;height:8px;background:var(--cyan);box-shadow:0 0 12px var(--cyan),0 0 24px var(--cyan)}
+.cursor-ring{width:38px;height:38px;border:1.5px solid rgba(255,61,139,.7);transition:width .25s,height .25s,border-color .25s,background .25s}
+.cursor-ring.hover{width:62px;height:62px;border-color:var(--amber);background:rgba(255,184,54,.08)}
+@media (hover:hover) and (pointer:fine){
+  body.has-cursor,body.has-cursor a,body.has-cursor button{cursor:none}
+  body.has-cursor .cursor-dot,body.has-cursor .cursor-ring{display:block}
+}
+
+/* Loader */
+#loader{
+  position:fixed;inset:0;z-index:10000;background:var(--bg);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;
+  transition:opacity .7s ease,visibility .7s ease;
+}
+#loader.done{opacity:0;visibility:hidden}
+.loader-initials{
+  font-family:var(--head);font-weight:800;font-size:clamp(4rem,12vw,7rem);letter-spacing:-.02em;
+  background:var(--grad);background-size:300% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;
+  animation:shimmer 2.5s linear infinite;
+}
+.loader-bar{width:min(260px,60vw);height:4px;border-radius:4px;background:rgba(255,255,255,.08);overflow:hidden}
+.loader-bar span{display:block;height:100%;width:0;background:var(--grad);background-size:200% 100%;border-radius:4px;animation:load 1.9s cubic-bezier(.6,.1,.3,1) forwards,shimmer 1.2s linear infinite}
+@keyframes load{to{width:100%}}
+
+/* Nav */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  padding-top:env(safe-area-inset-top,0px);
+  background:rgba(7,6,26,.55);backdrop-filter:blur(16px) saturate(140%);-webkit-backdrop-filter:blur(16px) saturate(140%);
+  border-bottom:1px solid var(--line);
+  transform:translateY(-110%);transition:transform .8s cubic-bezier(.2,.8,.2,1);
+}
+body.loaded nav{transform:translateY(0)}
+.nav-inner{max-width:1180px;margin:0 auto;padding:16px 24px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-family:var(--head);font-weight:700;font-size:1.15rem;letter-spacing:-.01em}
+.logo b{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;font-weight:800}
+.nav-links{display:flex;gap:28px;list-style:none}
+.nav-links a{position:relative;font-size:.95rem;color:var(--muted);transition:color .3s}
+.nav-links a::after{content:"";position:absolute;left:0;bottom:-4px;height:2px;width:100%;background:var(--grad);transform:scaleX(0);transform-origin:right;transition:transform .35s ease}
+.nav-links a:hover,.nav-links a.active{color:var(--text)}
+.nav-links a:hover::after,.nav-links a.active::after{transform:scaleX(1);transform-origin:left}
+.burger{display:none;background:none;border:0;color:var(--text);width:40px;height:40px;position:relative}
+.burger span,.burger span::before,.burger span::after{position:absolute;left:9px;width:22px;height:2px;background:currentColor;border-radius:2px;transition:.3s;content:""}
+.burger span{top:19px}.burger span::before{top:-7px;left:0}.burger span::after{top:7px;left:0}
+nav.open .burger span{background:transparent}
+nav.open .burger span::before{top:0;transform:rotate(45deg)}
+nav.open .burger span::after{top:0;transform:rotate(-45deg)}
+
+/* Layout général */
+section{max-width:1180px;margin:0 auto;padding:110px 24px}
+.section-title{font-family:var(--head);font-weight:800;font-size:clamp(2rem,4.5vw,3rem);line-height:1.1;letter-spacing:-.02em;margin-bottom:14px}
+.section-sub{color:var(--muted);max-width:60ch;margin-bottom:52px}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+
+/* Reveal */
+.reveal{opacity:0;transition:opacity .9s ease,transform .9s cubic-bezier(.2,.8,.2,1)}
+.reveal.up{transform:translateY(40px)}
+.reveal.left{transform:translateX(-50px)}
+.reveal.right{transform:translateX(50px)}
+.reveal.visible{opacity:1;transform:none}
+
+/* Hero */
+.hero{min-height:100vh;display:grid;grid-template-columns:1.25fr 1fr;align-items:center;gap:60px;padding-top:130px}
+.tag{
+  display:inline-flex;align-items:center;gap:10px;padding:8px 16px;border-radius:40px;
+  background:rgba(46,230,245,.08);border:1px solid rgba(46,230,245,.3);color:var(--cyan);font-size:.9rem;font-weight:500;margin-bottom:26px;
+}
+.tag i{width:8px;height:8px;border-radius:50%;background:var(--cyan);box-shadow:0 0 0 0 rgba(46,230,245,.7);animation:ping 1.8s infinite}
+@keyframes ping{70%{box-shadow:0 0 0 10px rgba(46,230,245,0)}100%{box-shadow:0 0 0 0 rgba(46,230,245,0)}}
+.hero h1{
+  font-family:var(--head);font-weight:800;font-size:clamp(3rem,8vw,6.2rem);line-height:.95;letter-spacing:-.035em;margin-bottom:24px;
+  background:linear-gradient(90deg,#fff 0%,var(--cyan) 20%,var(--indigo) 40%,var(--pink) 60%,var(--amber) 80%,#fff 100%);
+  background-size:250% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;
+  animation:shimmer 6s linear infinite;
+}
+@keyframes shimmer{0%{background-position:0% 50%}100%{background-position:250% 50%}}
+.hero .role{font-family:var(--head);font-size:clamp(1.15rem,2.4vw,1.55rem);font-weight:600;margin-bottom:10px}
+.hero .lead{color:var(--muted);max-width:52ch;margin-bottom:36px}
+.cta{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:30px}
+.btn{
+  display:inline-flex;align-items:center;gap:10px;padding:14px 26px;border-radius:40px;font-weight:600;font-size:.97rem;
+  transition:transform .3s,box-shadow .3s,background .3s;border:1px solid transparent;
+}
+.btn-primary{background:linear-gradient(120deg,var(--indigo),var(--pink));color:#fff;box-shadow:0 10px 30px -10px rgba(255,61,139,.6)}
+.btn-primary:hover{transform:translateY(-3px);box-shadow:0 16px 40px -10px rgba(255,61,139,.8)}
+.btn-ghost{border-color:var(--line);background:rgba(255,255,255,.03)}
+.btn-ghost:hover{border-color:var(--cyan);transform:translateY(-3px);box-shadow:0 10px 30px -12px rgba(46,230,245,.5)}
+.socials{display:flex;gap:12px}
+.socials a{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;border:1px solid var(--line);color:var(--muted);transition:.3s}
+.socials a:hover{color:var(--text);border-color:var(--pink);transform:translateY(-3px)}
+.socials svg{width:20px;height:20px}
+
+.hero-visual{position:relative;display:grid;place-items:center;perspective:1200px;min-height:480px}
+.orb{position:absolute;width:360px;height:360px;border-radius:50%;background:radial-gradient(circle,rgba(91,75,255,.55),rgba(255,61,139,.25) 45%,transparent 70%);filter:blur(40px);animation:orb 7s ease-in-out infinite alternate}
+@keyframes orb{to{transform:scale(1.15) translate(20px,-10px)}}
+.card3d{
+  position:relative;width:min(340px,86vw);padding:36px 28px 28px;border-radius:24px;text-align:center;
+  background:linear-gradient(160deg,rgba(40,33,110,.75),rgba(14,12,42,.85));border:1px solid rgba(160,150,255,.25);
+  box-shadow:0 30px 80px -20px rgba(0,0,0,.7),inset 0 1px 0 rgba(255,255,255,.08);
+  transform-style:preserve-3d;animation:float3d 9s ease-in-out infinite;
+}
+@keyframes float3d{
+  0%{transform:rotateY(-14deg) rotateX(8deg) translateY(0)}
+  25%{transform:rotateY(0deg) rotateX(-4deg) translateY(-14px)}
+  50%{transform:rotateY(14deg) rotateX(6deg) translateY(0)}
+  75%{transform:rotateY(0deg) rotateX(-6deg) translateY(-10px)}
+  100%{transform:rotateY(-14deg) rotateX(8deg) translateY(0)}
+}
+.avatar-wrap{position:relative;width:132px;height:132px;margin:0 auto 20px;transform:translateZ(40px)}
+.avatar-ring{position:absolute;inset:-12px;border-radius:50%;border:2px dashed rgba(46,230,245,.55);animation:spin 14s linear infinite}
+.avatar-ring.two{inset:-22px;border-color:rgba(255,61,139,.35);border-style:dotted;animation-duration:22s;animation-direction:reverse}
+@keyframes spin{to{transform:rotate(360deg)}}
+.avatar{width:100%;height:100%;border-radius:50%;overflow:hidden;background:var(--grad);display:grid;place-items:center;font-family:var(--head);font-weight:800;font-size:2.6rem;color:#fff;border:3px solid rgba(255,255,255,.12)}
+.avatar img{width:100%;height:100%;object-fit:cover}
+.card3d h3{font-family:var(--head);font-size:1.35rem;font-weight:700;transform:translateZ(30px)}
+.card3d .card-role{color:var(--cyan);font-size:.92rem;margin-bottom:22px;transform:translateZ(25px)}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;transform:translateZ(20px)}
+.stat{padding:12px 4px;border-radius:12px;background:rgba(255,255,255,.04);border:1px solid var(--line)}
+.stat strong{display:block;font-family:var(--head);font-size:1.2rem;font-weight:800;line-height:1.2}
+.stat:nth-child(1) strong{color:var(--amber)}
+.stat:nth-child(2) strong{color:var(--pink)}
+.stat:nth-child(3) strong{color:var(--cyan)}
+.stat span{font-size:.72rem;color:var(--muted);line-height:1.3;display:block;margin-top:4px}
+
+/* Projet phare */
+.flagship{padding:44px;position:relative;overflow:hidden}
+.flagship::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;background:var(--grad);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:.6;pointer-events:none}
+.flag-head{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;align-items:baseline;margin-bottom:8px}
+.flag-head h3{font-family:var(--head);font-size:clamp(1.4rem,3vw,1.9rem);font-weight:700;line-height:1.2}
+.flag-meta{color:var(--amber);font-weight:500;font-size:.95rem}
+.flag-desc{color:var(--muted);max-width:70ch;margin-bottom:30px}
+.flow-scroll{overflow-x:auto;margin-bottom:34px;padding-bottom:6px}
+.flow{min-width:760px;width:100%;height:auto}
+.flow .node rect{fill:rgba(20,17,58,.9);stroke-width:1.5}
+.flow text{font-family:var(--body);fill:var(--text);font-size:13px}
+.flow .t-title{font-family:var(--head);font-weight:700;font-size:14px}
+.flow .t-sub{fill:var(--muted);font-size:11.5px}
+.flow .wire{fill:none;stroke:rgba(160,150,255,.35);stroke-width:2}
+.flow .pulse{fill:none;stroke-width:2.5;stroke-dasharray:14 200;stroke-linecap:round;animation:dash 2.4s linear infinite}
+@keyframes dash{from{stroke-dashoffset:214}to{stroke-dashoffset:0}}
+.flag-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.flag-item{padding:20px;border-radius:14px;background:rgba(255,255,255,.03);border:1px solid var(--line);transition:border-color .3s,transform .3s}
+.flag-item:hover{border-color:rgba(46,230,245,.45);transform:translateY(-3px)}
+.flag-item h4{font-family:var(--head);font-size:1.02rem;font-weight:700;margin-bottom:6px}
+.flag-item p{color:var(--muted);font-size:.93rem}
+
+/* Compétences */
+.skills-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px}
+.skill-card{padding:28px;position:relative;overflow:hidden}
+.skill-card::after{content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.07),transparent);transform:skewX(-20deg);pointer-events:none}
+.skill-card.visible::after{animation:sweep 1.4s .5s ease forwards}
+@keyframes sweep{to{left:130%}}
+.skill-head{display:flex;align-items:center;gap:14px;margin-bottom:6px}
+.skill-icon{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;font-size:1.3rem}
+.skill-card h3{font-family:var(--head);font-size:1.2rem;font-weight:700}
+.skill-card .bar{height:3px;border-radius:3px;background:rgba(255,255,255,.07);margin:16px 0 20px;overflow:hidden}
+.skill-card .bar span{display:block;height:100%;width:0;border-radius:3px;transition:width 1.4s cubic-bezier(.2,.8,.2,1)}
+.skill-card.visible .bar span{width:100%}
+.chips{display:flex;flex-wrap:wrap;gap:9px}
+.chip{padding:7px 14px;border-radius:30px;font-size:.88rem;background:rgba(255,255,255,.04);border:1px solid var(--line);transition:transform .3s,border-color .3s,box-shadow .3s,color .3s}
+.chip:hover{transform:translateY(-5px);color:#fff}
+.c-indigo .skill-icon{background:rgba(91,75,255,.18)}.c-indigo .bar span{background:linear-gradient(90deg,var(--indigo),var(--cyan))}.c-indigo .chip:hover{border-color:var(--indigo);box-shadow:0 8px 20px -8px var(--indigo)}
+.c-pink .skill-icon{background:rgba(255,61,139,.15)}.c-pink .bar span{background:linear-gradient(90deg,var(--pink),var(--amber))}.c-pink .chip:hover{border-color:var(--pink);box-shadow:0 8px 20px -8px var(--pink)}
+.c-cyan .skill-icon{background:rgba(46,230,245,.13)}.c-cyan .bar span{background:linear-gradient(90deg,var(--cyan),var(--indigo))}.c-cyan .chip:hover{border-color:var(--cyan);box-shadow:0 8px 20px -8px var(--cyan)}
+.c-amber .skill-icon{background:rgba(255,184,54,.14)}.c-amber .bar span{background:linear-gradient(90deg,var(--amber),var(--pink))}.c-amber .chip:hover{border-color:var(--amber);box-shadow:0 8px 20px -8px var(--amber)}
+
+/* Marquee */
+.marquee{position:relative;z-index:2;overflow:hidden;padding:26px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:rgba(14,12,42,.5);
+  -webkit-mask:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent);mask:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent)}
+.marquee-track{display:flex;width:max-content;animation:marquee 45s linear infinite}
+.marquee:hover .marquee-track{animation-play-state:paused}
+.marquee-track span{font-family:var(--head);font-weight:700;font-size:clamp(1.1rem,2.2vw,1.6rem);padding:0 26px;white-space:nowrap;color:rgba(236,235,255,.55);display:flex;align-items:center;gap:26px}
+.marquee-track span::after{content:"✦";font-size:.8em;color:var(--pink)}
+.marquee-track span:nth-child(3n+2)::after{color:var(--cyan)}
+.marquee-track span:nth-child(3n)::after{color:var(--amber)}
+.marquee.orgs .marquee-track{animation-duration:30s;animation-direction:reverse}
+.marquee.orgs span{color:var(--text)}
+@keyframes marquee{to{transform:translateX(-50%)}}
+
+/* Timeline */
+.timeline{position:relative;padding-left:40px}
+.timeline::before{content:"";position:absolute;left:8px;top:6px;bottom:6px;width:3px;border-radius:3px;background:linear-gradient(180deg,var(--indigo),var(--pink),var(--cyan),var(--amber),var(--indigo));background-size:100% 300%;animation:flowline 6s linear infinite}
+@keyframes flowline{to{background-position:0 300%}}
+.job{position:relative;padding:28px 30px;margin-bottom:26px;transition:transform .4s,box-shadow .4s,border-color .4s}
+.job::before{content:"";position:absolute;left:-39px;top:34px;width:17px;height:17px;border-radius:50%;background:var(--bg);border:3px solid var(--pink);box-shadow:0 0 14px var(--pink)}
+.job:nth-child(2)::before{border-color:var(--cyan);box-shadow:0 0 14px var(--cyan)}
+.job:nth-child(3)::before{border-color:var(--amber);box-shadow:0 0 14px var(--amber)}
+.job.visible:hover{transform:translateX(10px);border-color:rgba(255,61,139,.4);box-shadow:0 0 0 1px rgba(255,61,139,.15),0 20px 50px -20px rgba(255,61,139,.45)}
+.job-top{display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px 20px;margin-bottom:4px}
+.job h3{font-family:var(--head);font-size:1.28rem;font-weight:700;line-height:1.3}
+.job .company{color:var(--cyan);font-weight:600;margin-bottom:12px}
+.job .when{color:var(--muted);font-size:.9rem;display:flex;gap:16px;flex-wrap:wrap}
+.job ul{list-style:none;margin-bottom:18px}
+.job li{position:relative;padding-left:20px;color:#cfcdef;margin-bottom:7px;font-size:.96rem}
+.job li::before{content:"";position:absolute;left:0;top:.7em;width:8px;height:2px;background:var(--pink)}
+
+/* Projets */
+.projects{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.project{position:relative;padding:30px 26px;overflow:hidden;display:flex;flex-direction:column;transition:transform .4s,box-shadow .4s}
+.project::before{content:"";position:absolute;top:0;left:0;height:3px;width:100%;background:var(--grad);transform:scaleX(0);transform-origin:left;transition:transform .6s cubic-bezier(.2,.8,.2,1)}
+.project:hover{transform:translateY(-10px);box-shadow:0 30px 60px -25px rgba(91,75,255,.6)}
+.project:hover::before{transform:scaleX(1)}
+.project .emoji{font-size:2.3rem;margin-bottom:16px;display:inline-block;transition:transform .4s}
+.project:hover .emoji{transform:scale(1.15) rotate(-6deg)}
+.project h3{font-family:var(--head);font-size:1.2rem;font-weight:700;line-height:1.3;margin-bottom:10px}
+.project p{color:var(--muted);font-size:.94rem;margin-bottom:20px;flex:1}
+.project .highlight{display:inline-block;color:var(--amber);font-weight:600;font-size:.88rem;margin-bottom:14px}
+.tags{display:flex;flex-wrap:wrap;gap:7px}
+.tags span{font-size:.78rem;padding:4px 11px;border-radius:20px;background:rgba(91,75,255,.14);color:#c8c2ff;border:1px solid rgba(91,75,255,.25)}
+
+/* Formation */
+.edu-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-bottom:22px}
+.edu{padding:28px;display:flex;gap:18px}
+.edu .ico{flex:none;width:52px;height:52px;border-radius:14px;display:grid;place-items:center;font-size:1.5rem;background:rgba(91,75,255,.16)}
+.edu h3{font-family:var(--head);font-size:1.12rem;font-weight:700;line-height:1.3;margin-bottom:4px}
+.edu .school{color:var(--cyan);font-weight:500;font-size:.95rem}
+.edu .years{color:var(--muted);font-size:.88rem;margin-top:4px}
+.badge-rank{display:inline-flex;align-items:center;gap:8px;margin-top:12px;padding:6px 14px;border-radius:30px;font-weight:600;font-size:.88rem;color:var(--amber);background:rgba(255,184,54,.1);border:1px solid rgba(255,184,54,.35)}
+.bottom-grid{display:grid;grid-template-columns:1.5fr 1fr;gap:22px}
+.certs,.langs{padding:28px}
+.certs h3,.langs h3{font-family:var(--head);font-size:1.15rem;font-weight:700;margin-bottom:18px}
+.cert{display:flex;gap:14px;padding:14px 0;border-top:1px solid var(--line)}
+.cert:first-of-type{border-top:0;padding-top:0}
+.cert .yr{flex:none;font-family:var(--head);font-weight:700;color:var(--pink);width:48px}
+.cert strong{display:block;font-weight:600;line-height:1.4}
+.cert span{color:var(--muted);font-size:.9rem}
+.lang-list{display:flex;flex-direction:column;gap:12px}
+.lang{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-radius:14px;border:1px solid var(--line);background:rgba(255,255,255,.03);opacity:0;transform:scale(.85)}
+.langs.visible .lang{animation:pop .6s cubic-bezier(.3,1.5,.5,1) forwards}
+.langs.visible .lang:nth-child(2){animation-delay:.15s}
+.langs.visible .lang:nth-child(3){animation-delay:.3s}
+@keyframes pop{to{opacity:1;transform:scale(1)}}
+.lang b{font-weight:600}
+.lang em{font-style:normal;font-size:.82rem;padding:3px 11px;border-radius:20px}
+.lang:nth-child(1) em{background:rgba(46,230,245,.12);color:var(--cyan)}
+.lang:nth-child(2) em{background:rgba(255,61,139,.12);color:var(--pink)}
+.lang:nth-child(3) em{background:rgba(255,184,54,.12);color:var(--amber)}
+
+/* Contact */
+.contact{display:grid;grid-template-columns:1.2fr 1fr;gap:50px;align-items:center}
+.contact-list{display:flex;flex-direction:column;gap:14px;margin-bottom:28px}
+.c-item{display:flex;align-items:center;gap:16px;padding:16px 20px;transition:transform .35s,border-color .35s}
+.c-item:hover{transform:translateX(10px);border-color:rgba(46,230,245,.45)}
+.c-item .ci{flex:none;width:44px;height:44px;border-radius:12px;display:grid;place-items:center;font-size:1.2rem;background:rgba(91,75,255,.18)}
+.c-item small{display:block;color:var(--muted);font-size:.82rem}
+.c-item b{font-weight:600;word-break:break-word}
+.ripple-zone{position:relative;display:grid;place-items:center;min-height:380px}
+.ripple{position:absolute;width:170px;height:170px;border-radius:50%;border:2px solid var(--pink);opacity:0;animation:ripple 3.6s ease-out infinite}
+.ripple:nth-child(2){animation-delay:1.2s;border-color:var(--cyan)}
+.ripple:nth-child(3){animation-delay:2.4s;border-color:var(--amber)}
+@keyframes ripple{0%{transform:scale(1);opacity:.8}100%{transform:scale(2.3);opacity:0}}
+.pulse-avatar{position:relative;width:170px;height:170px;border-radius:50%;display:grid;place-items:center;font-family:var(--head);font-weight:800;font-size:3.6rem;color:#fff;background:linear-gradient(135deg,var(--indigo),var(--pink));animation:beat 2.4s ease-in-out infinite;box-shadow:0 0 60px rgba(255,61,139,.45)}
+@keyframes beat{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
+
+footer{text-align:center;padding:40px 24px calc(40px + env(safe-area-inset-bottom,0px));color:var(--muted);font-size:.9rem;border-top:1px solid var(--line)}
+
+/* Responsive */
+@media (max-width:960px){
+  .hero{grid-template-columns:1fr;text-align:left;gap:30px;padding-top:120px}
+  .hero-visual{min-height:440px}
+  .projects{grid-template-columns:1fr 1fr}
+  .contact{grid-template-columns:1fr}
+  .bottom-grid{grid-template-columns:1fr}
+}
+@media (max-width:760px){
+  .burger{display:block}
+  .nav-links{position:absolute;top:100%;left:0;right:0;flex-direction:column;gap:0;background:rgba(7,6,26,.96);border-bottom:1px solid var(--line);max-height:0;overflow:hidden;transition:max-height .4s ease}
+  nav.open .nav-links{max-height:400px}
+  .nav-links li a{display:block;padding:15px 24px}
+  .nav-links a::after{display:none}
+  section{padding:80px 20px}
+  .skills-grid,.projects,.edu-grid,.flag-grid{grid-template-columns:1fr}
+  .flagship{padding:28px 22px}
+  .timeline{padding-left:30px}
+  .job{padding:22px}
+  .job::before{left:-29px}
+  .edu{flex-direction:column}
+  .ripple-zone{min-height:320px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+  html{scroll-behavior:auto}
+  .reveal{opacity:1;transform:none}
+  .lang{opacity:1;transform:none}
+  .marquee-track{animation:none}
+}
+</style>
+</head>
+<body>
+
+<div id="loader" aria-hidden="true">
+  <div class="loader-initials">AK</div>
+  <div class="loader-bar"><span></span></div>
+</div>
+
+<canvas id="particles" aria-hidden="true"></canvas>
+<div class="noise" aria-hidden="true"></div>
+<div class="cursor-dot" aria-hidden="true"></div>
+<div class="cursor-ring" aria-hidden="true"></div>
+
+<nav id="nav" aria-label="Navigation principale">
+  <div class="nav-inner">
+    <a href="#accueil" class="logo">Ahmed <b>Kammoun</b></a>
+    <button class="burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false"><span></span></button>
+    <ul class="nav-links">
+      <li><a href="#orchestrateur">Projet phare</a></li>
+      <li><a href="#competences">Compétences</a></li>
+      <li><a href="#experience">Expérience</a></li>
+      <li><a href="#projets">Projets</a></li>
+      <li><a href="#formation">Formation</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main>
+<!-- HERO -->
+<section class="hero" id="accueil">
+  <div class="reveal left">
+    <div class="tag"><i></i>Disponible en CDI dès novembre 2026</div>
+    <h1>Ahmed<br>Kammoun</h1>
+    <p class="role">Ingénieur Cloud &amp; DevOps</p>
+    <p class="lead">Systèmes distribués et IA appliquée. Ingénieur informatique (ENIS 2026), je termine mon stage de fin d'études au LAAS-CNRS sur l'orchestration Cloud/Edge avec OpenStack, Kubernetes et des LLM.</p>
+    <div class="cta">
+      <a href="#projets" class="btn btn-primary">Voir mes projets</a>
+      <a href="#contact" class="btn btn-ghost">Me contacter</a>
+    </div>
+    <div class="socials">
+      <a href="https://github.com/ahmedkammoun14" target="_blank" rel="noopener" aria-label="GitHub">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.52-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.56-.29-5.25-1.28-5.25-5.69 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.42-2.7 5.39-5.27 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5Z"/></svg>
+      </a>
+      <a href="https://www.linkedin.com/in/kammoun-ahmed/" target="_blank" rel="noopener" aria-label="LinkedIn">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13ZM7.12 20.45H3.56V9h3.56v11.45ZM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0Z"/></svg>
+      </a>
+      <a href="mailto:ahmedkammoun478@gmail.com" aria-label="Email">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="3"/><path d="m3 6 9 7 9-7"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <div class="hero-visual reveal right">
+    <div class="orb"></div>
+    <div class="card3d">
+      <div class="avatar-wrap">
+        <div class="avatar-ring two"></div>
+        <div class="avatar-ring"></div>
+        <div class="avatar"><img src="data:image/jpeg;base64,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" alt="Photo d'Ahmed Kammoun" width="132" height="132"></div>
+      </div>
+      <h3>Ahmed Kammoun</h3>
+      <p class="card-role">Cloud · DevOps · IA appliquée</p>
+      <div class="stats">
+        <div class="stat"><strong>99/730</strong><span>rang national aux concours</span></div>
+        <div class="stat"><strong>95 %</strong><span>précision modèle de diagnostic</span></div>
+        <div class="stat"><strong>8 VMs</strong><span>Cloud/Edge, 2 fournisseurs</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Marquee organisations -->
+<div class="marquee orgs" aria-label="Organisations">
+  <div class="marquee-track">
+    <span>LAAS-CNRS</span><span>Telnet</span><span>Philadelphia Pharma</span><span>ENIS Sfax</span><span>IPEIS Sfax</span><span>NVIDIA DLI</span><span>DeepLearning.AI</span>
+    <span>LAAS-CNRS</span><span>Telnet</span><span>Philadelphia Pharma</span><span>ENIS Sfax</span><span>IPEIS Sfax</span><span>NVIDIA DLI</span><span>DeepLearning.AI</span>
+  </div>
+</div>
+
+<!-- PROJET PHARE -->
+<section id="orchestrateur">
+  <h2 class="section-title reveal up">Projet phare</h2>
+  <p class="section-sub reveal up">Mon stage de fin d'études au LAAS-CNRS : un orchestrateur QoS qui répartit des services entre plusieurs fournisseurs Cloud/Edge, sans autorité centrale.</p>
+
+  <div class="panel flagship reveal up">
+    <div class="flag-head">
+      <h3>Orchestrateur QoS multi-fournisseurs Cloud/Edge</h3>
+      <span class="flag-meta">LAAS-CNRS, Toulouse · avril à septembre 2026</span>
+    </div>
+    <p class="flag-desc">Déployé sur une infrastructure réelle (OpenStack et Kubernetes, 8 VMs, 2 fournisseurs) et validé sur un scénario de mobilité critique avec un véhicule connecté PiCar-X.</p>
+
+    <div class="flow-scroll">
+      <svg class="flow" viewBox="0 0 1000 150" role="img" aria-label="Chaîne de l'orchestrateur : intention utilisateur, moteur LLM Intent-QoS, arbitrage Contract Net, fournisseurs Cloud/Edge, tableau de bord d'explicabilité">
+        <defs>
+          <linearGradient id="gw" x1="0" x2="1"><stop offset="0" stop-color="#5b4bff"/><stop offset=".5" stop-color="#ff3d8b"/><stop offset="1" stop-color="#2ee6f5"/></linearGradient>
+        </defs>
+        <path class="wire" d="M170 75 H210"/><path class="wire" d="M370 75 H410"/><path class="wire" d="M570 75 H610"/><path class="wire" d="M770 75 H810"/>
+        <path class="pulse" stroke="#ff3d8b" d="M170 75 H210"/><path class="pulse" stroke="#2ee6f5" d="M370 75 H410" style="animation-delay:.6s"/>
+        <path class="pulse" stroke="#ffb836" d="M570 75 H610" style="animation-delay:1.2s"/><path class="pulse" stroke="#5b4bff" d="M770 75 H810" style="animation-delay:1.8s"/>
+        <g class="node"><rect x="10" y="25" width="160" height="100" rx="14" stroke="#5b4bff"/><text x="90" y="62" text-anchor="middle" class="t-title">Intention</text><text x="90" y="84" text-anchor="middle" class="t-sub">besoin exprimé</text><text x="90" y="101" text-anchor="middle" class="t-sub">en haut niveau</text></g>
+        <g class="node"><rect x="210" y="25" width="160" height="100" rx="14" stroke="#ff3d8b"/><text x="290" y="62" text-anchor="middle" class="t-title">Moteur LLM</text><text x="290" y="84" text-anchor="middle" class="t-sub">Intent → QoS</text><text x="290" y="101" text-anchor="middle" class="t-sub">latence, CPU/RAM</text></g>
+        <g class="node"><rect x="410" y="25" width="160" height="100" rx="14" stroke="#2ee6f5"/><text x="490" y="62" text-anchor="middle" class="t-title">Arbitrage</text><text x="490" y="84" text-anchor="middle" class="t-sub">Contract Net,</text><text x="490" y="101" text-anchor="middle" class="t-sub">sans autorité centrale</text></g>
+        <g class="node"><rect x="610" y="25" width="160" height="100" rx="14" stroke="#ffb836"/><text x="690" y="62" text-anchor="middle" class="t-title">Fournisseurs</text><text x="690" y="84" text-anchor="middle" class="t-sub">OpenStack</text><text x="690" y="101" text-anchor="middle" class="t-sub">Kubernetes</text></g>
+        <g class="node"><rect x="810" y="25" width="180" height="100" rx="14" stroke="url(#gw)"/><text x="900" y="62" text-anchor="middle" class="t-title">Explicabilité</text><text x="900" y="84" text-anchor="middle" class="t-sub">scores TOPSIS,</text><text x="900" y="101" text-anchor="middle" class="t-sub">trace de raisonnement</text></g>
+      </svg>
+    </div>
+
+    <div class="flag-grid">
+      <div class="flag-item"><h4>☁️ Infrastructure réelle</h4><p>Orchestrateur QoS multi-fournisseurs déployé sur OpenStack et Kubernetes : 8 VMs réparties sur 2 fournisseurs.</p></div>
+      <div class="flag-item"><h4>🧠 Moteur Intent–QoS par LLM</h4><p>Traduction d'intentions de haut niveau en exigences mesurables (latence, CPU/RAM).</p></div>
+      <div class="flag-item"><h4>🤝 Arbitrage décentralisé</h4><p>Protocole Contract Net entre fournisseurs, validé sur un scénario de mobilité critique (véhicule connecté PiCar-X).</p></div>
+      <div class="flag-item"><h4>📊 Explicabilité temps réel</h4><p>Tableau de bord avec trace de raisonnement et scores TOPSIS, découverte de métriques par information mutuelle.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPETENCES -->
+<section id="competences">
+  <h2 class="section-title reveal up">Compétences</h2>
+  <p class="section-sub reveal up">Du déploiement d'infrastructure aux pipelines d'IA : les outils que j'utilise en stage et en projet.</p>
+  <div class="skills-grid">
+    <div class="panel skill-card c-indigo reveal left">
+      <div class="skill-head"><div class="skill-icon">⚙️</div><h3>Cloud &amp; DevOps</h3></div>
+      <div class="bar"><span></span></div>
+      <div class="chips"><span class="chip">Kubernetes</span><span class="chip">Docker</span><span class="chip">Docker Compose</span><span class="chip">OpenStack</span><span class="chip">Jenkins</span><span class="chip">GitLab CI</span><span class="chip">CI/CD</span><span class="chip">Git</span></div>
+    </div>
+    <div class="panel skill-card c-pink reveal right">
+      <div class="skill-head"><div class="skill-icon">🔐</div><h3>Backend &amp; Sécurité</h3></div>
+      <div class="bar"><span></span></div>
+      <div class="chips"><span class="chip">Spring Boot</span><span class="chip">Spring Cloud</span><span class="chip">FastAPI</span><span class="chip">Flask</span><span class="chip">JWT</span><span class="chip">OAuth2</span><span class="chip">RBAC</span><span class="chip">WebSockets</span></div>
+    </div>
+    <div class="panel skill-card c-cyan reveal left">
+      <div class="skill-head"><div class="skill-icon">🤖</div><h3>IA &amp; Données</h3></div>
+      <div class="bar"><span></span></div>
+      <div class="chips"><span class="chip">TensorFlow</span><span class="chip">PyTorch</span><span class="chip">LangGraph</span><span class="chip">LangChain</span><span class="chip">RAG</span><span class="chip">Hugging Face</span><span class="chip">PostgreSQL</span><span class="chip">pgVector</span><span class="chip">Neo4j</span></div>
+    </div>
+    <div class="panel skill-card c-amber reveal right">
+      <div class="skill-head"><div class="skill-icon">💻</div><h3>Langages &amp; Front</h3></div>
+      <div class="bar"><span></span></div>
+      <div class="chips"><span class="chip">Python</span><span class="chip">Java</span><span class="chip">TypeScript</span><span class="chip">SQL</span><span class="chip">Angular</span><span class="chip">React</span><span class="chip">Streamlit</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="marquee" aria-label="Stack technique">
+  <div class="marquee-track">
+    <span>Kubernetes</span><span>OpenStack</span><span>Docker</span><span>Jenkins</span><span>GitLab CI</span><span>Spring Cloud</span><span>FastAPI</span><span>LangGraph</span><span>LangChain</span><span>PyTorch</span><span>TensorFlow</span><span>Neo4j</span><span>pgVector</span><span>Jetson Nano</span><span>Python</span><span>Angular</span>
+    <span>Kubernetes</span><span>OpenStack</span><span>Docker</span><span>Jenkins</span><span>GitLab CI</span><span>Spring Cloud</span><span>FastAPI</span><span>LangGraph</span><span>LangChain</span><span>PyTorch</span><span>TensorFlow</span><span>Neo4j</span><span>pgVector</span><span>Jetson Nano</span><span>Python</span><span>Angular</span>
+  </div>
+</div>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <h2 class="section-title reveal up">Expérience</h2>
+  <p class="section-sub reveal up">Trois stages, de la recherche en orchestration Cloud/Edge au développement full-stack.</p>
+  <div class="timeline">
+    <article class="panel job reveal right">
+      <div class="job-top"><h3>Ingénieur R&amp;D Cloud / Edge (stage PFE)</h3><div class="when"><span>📅 Avril 2026 – Septembre 2026</span><span>📍 Toulouse, France</span></div></div>
+      <p class="company">LAAS-CNRS</p>
+      <ul>
+        <li>Déploiement d'un orchestrateur QoS multi-fournisseurs sur une infrastructure Cloud/Edge réelle : OpenStack et Kubernetes, 8 VMs, 2 fournisseurs.</li>
+        <li>Moteur Intent–QoS piloté par LLM : intentions haut niveau traduites en exigences mesurables (latence, CPU/RAM).</li>
+        <li>Protocole d'arbitrage inter-fournisseurs sans autorité centrale (Contract Net), validé sur un scénario de mobilité critique (véhicule connecté PiCar-X).</li>
+        <li>Tableau de bord d'explicabilité temps réel (trace de raisonnement, scores TOPSIS) et découverte de métriques par information mutuelle.</li>
+      </ul>
+      <div class="tags"><span>OpenStack</span><span>Kubernetes</span><span>Python</span><span>LLM</span><span>Cloud Continuum</span><span>IoT</span></div>
+    </article>
+    <article class="panel job reveal right">
+      <div class="job-top"><h3>Ingénieur Full-Stack &amp; DevOps (stage)</h3><div class="when"><span>📅 Juillet 2025 – Août 2025</span><span>📍 Sfax, Tunisie</span></div></div>
+      <p class="company">Telnet</p>
+      <ul>
+        <li>Plateforme de gestion de projet Agile (type Jira) en microservices.</li>
+        <li>Authentification sécurisée JWT + Refresh Token avec rotation de tokens.</li>
+        <li>Pipeline CI/CD Jenkins : build, tests et déploiement de conteneurs.</li>
+      </ul>
+      <div class="tags"><span>Spring Boot</span><span>Angular</span><span>Jenkins</span><span>Docker</span><span>JWT</span><span>WebSockets</span></div>
+    </article>
+    <article class="panel job reveal right">
+      <div class="job-top"><h3>Développeur Full-Stack (stage)</h3><div class="when"><span>📅 Août 2024</span><span>📍 Sfax, Tunisie</span></div></div>
+      <p class="company">Philadelphia Pharma</p>
+      <ul>
+        <li>Gestion des plannings et présences, tableau de bord admin, rôles (RBAC).</li>
+      </ul>
+      <div class="tags"><span>Full-Stack</span><span>RBAC</span><span>Dashboard</span></div>
+    </article>
+  </div>
+</section>
+
+<!-- PROJETS -->
+<section id="projets">
+  <h2 class="section-title reveal up">Projets</h2>
+  <p class="section-sub reveal up">IA multi-agents, Edge AI embarquée et architecture microservices.</p>
+  <div class="projects">
+    <article class="panel project reveal up">
+      <span class="emoji">🩺</span>
+      <h3>IA multi-agents pour le diagnostic de pneumonie</h3>
+      <span class="highlight">95 % de précision</span>
+      <p>Système multi-agents : classification MobileNetV2, pipeline RAG, graphe de connaissances et génération de rapports, avec explicabilité Grad-CAM.</p>
+      <div class="tags"><span>LangGraph</span><span>ChromaDB</span><span>Ollama</span><span>Neo4j</span><span>Grad-CAM</span></div>
+    </article>
+    <article class="panel project reveal up" style="transition-delay:.12s">
+      <span class="emoji">🌾</span>
+      <h3>Edge AI : classification de grains de blé</h3>
+      <span class="highlight">Inférence temps réel</span>
+      <p>Transfer learning MobileNetV3Small (data augmentation, GANs) déployé sur NVIDIA Jetson Nano.</p>
+      <div class="tags"><span>TensorFlow</span><span>GANs</span><span>Jetson Nano</span><span>Edge AI</span></div>
+    </article>
+    <article class="panel project reveal up" style="transition-delay:.24s">
+      <span class="emoji">🧪</span>
+      <h3>Microservices : plateforme de gestion de laboratoire</h3>
+      <span class="highlight">Spring Cloud sécurisé</span>
+      <p>Écosystème Spring Cloud (Eureka, API Gateway, configuration centralisée) sécurisé OAuth2/JWT, SPA Angular avec Route Guards.</p>
+      <div class="tags"><span>Spring Cloud</span><span>OAuth2</span><span>JWT</span><span>Angular</span><span>PostgreSQL</span></div>
+    </article>
+  </div>
+</section>
+
+<!-- FORMATION -->
+<section id="formation">
+  <h2 class="section-title reveal up">Formation</h2>
+  <p class="section-sub reveal up">Diplômes, certifications et langues.</p>
+  <div class="edu-grid">
+    <div class="panel edu reveal left">
+      <div class="ico">🎓</div>
+      <div>
+        <h3>Cycle d'ingénieur en Informatique</h3>
+        <p class="school">École Nationale d'Ingénieurs de Sfax (ENIS)</p>
+        <p class="years">2023 – 2026</p>
+      </div>
+    </div>
+    <div class="panel edu reveal right">
+      <div class="ico">📐</div>
+      <div>
+        <h3>Classes préparatoires</h3>
+        <p class="school">IPEIS Sfax</p>
+        <p class="years">2021 – 2023</p>
+        <span class="badge-rank">🏆 Rang national 99/730</span>
+      </div>
+    </div>
+  </div>
+  <div class="bottom-grid">
+    <div class="panel certs reveal up">
+      <h3>Certifications</h3>
+      <div class="cert"><span class="yr">2025</span><div><strong>Scrum Fundamentals Certified (SFC)</strong><span>SCRUMstudy</span></div></div>
+      <div class="cert"><span class="yr">2024</span><div><strong>Fondamentaux de l'apprentissage profond</strong><span>NVIDIA Deep Learning Institute</span></div></div>
+      <div class="cert"><span class="yr">2024</span><div><strong>Supervised Machine Learning: Regression and Classification</strong><span>DeepLearning.AI &amp; Stanford, Coursera</span></div></div>
+    </div>
+    <div class="panel langs reveal up" style="transition-delay:.12s">
+      <h3>Langues</h3>
+      <div class="lang-list">
+        <div class="lang"><b>Arabe</b><em>Natif</em></div>
+        <div class="lang"><b>Français</b><em>TCF B2</em></div>
+        <div class="lang"><b>Anglais</b></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact">
+    <div class="reveal left">
+      <h2 class="section-title">Travaillons ensemble</h2>
+      <p class="section-sub" style="margin-bottom:32px">Je cherche un CDI d'ingénieur Cloud &amp; DevOps, entre systèmes distribués et IA appliquée. Mobile partout en France.</p>
+      <div class="contact-list">
+        <a class="panel c-item" href="mailto:ahmedkammoun478@gmail.com"><span class="ci">✉️</span><span><small>Email</small><b>ahmedkammoun478@gmail.com</b></span></a>
+        <a class="panel c-item" href="https://wa.me/33745512481" target="_blank" rel="noopener"><span class="ci">💬</span><span><small>Téléphone / WhatsApp</small><b>+33 7 45 51 24 81</b></span></a>
+        <div class="panel c-item"><span class="ci">📍</span><span><small>Localisation</small><b>Toulouse, mobile en France, permis B</b></span></div>
+        <div class="panel c-item"><span class="ci">📅</span><span><small>Disponibilité</small><b>Novembre 2026</b></span></div>
+      </div>
+      <div class="cta">
+        <a href="cv.pdf" class="btn btn-primary" download>Télécharger mon CV</a>
+        <a href="https://www.linkedin.com/in/kammoun-ahmed/" target="_blank" rel="noopener" class="btn btn-ghost">LinkedIn</a>
+        <a href="https://github.com/ahmedkammoun14" target="_blank" rel="noopener" class="btn btn-ghost">GitHub</a>
+      </div>
+    </div>
+    <div class="ripple-zone reveal right" aria-hidden="true">
+      <span class="ripple"></span><span class="ripple"></span><span class="ripple"></span>
+      <div class="pulse-avatar">AK</div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>© <span id="year">2026</span> Ahmed Kammoun · Ingénieur Cloud &amp; DevOps</footer>
+
+<script>
+(function(){
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* Loader */
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      document.getElementById('loader').classList.add('done');
+      document.body.classList.add('loaded');
+    }, reduce ? 200 : 2000);
+  });
+
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  /* Menu mobile */
+  const nav = document.getElementById('nav'), burger = document.getElementById('burger');
+  burger.addEventListener('click', () => {
+    const open = nav.classList.toggle('open');
+    burger.setAttribute('aria-expanded', open);
+  });
+  document.querySelectorAll('.nav-links a').forEach(a => a.addEventListener('click', () => {
+    nav.classList.remove('open'); burger.setAttribute('aria-expanded', false);
+  }));
+
+  /* Lien actif dans la navbar */
+  const links = [...document.querySelectorAll('.nav-links a')];
+  const spy = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        links.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + e.target.id));
+      }
+    });
+  }, { rootMargin: '-45% 0px -50% 0px' });
+  document.querySelectorAll('main section[id]').forEach(s => spy.observe(s));
+
+  /* Scroll reveal */
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  /* Curseur personnalisé (souris uniquement) */
+  if (window.matchMedia('(hover: hover) and (pointer: fine)').matches && !reduce) {
+    document.body.classList.add('has-cursor');
+    const dot = document.querySelector('.cursor-dot'), ring = document.querySelector('.cursor-ring');
+    let mx = innerWidth / 2, my = innerHeight / 2, rx = mx, ry = my;
+    addEventListener('mousemove', e => {
+      mx = e.clientX; my = e.clientY;
+      dot.style.transform = `translate(${mx}px, ${my}px) translate(-50%,-50%)`;
+    });
+    (function loop(){
+      rx += (mx - rx) * 0.16; ry += (my - ry) * 0.16;
+      ring.style.transform = `translate(${rx}px, ${ry}px) translate(-50%,-50%)`;
+      requestAnimationFrame(loop);
+    })();
+    document.querySelectorAll('a, button, .chip, .project, .job, .c-item').forEach(el => {
+      el.addEventListener('mouseenter', () => ring.classList.add('hover'));
+      el.addEventListener('mouseleave', () => ring.classList.remove('hover'));
+    });
+  }
+
+  /* Réseau de particules */
+  const cv = document.getElementById('particles'), ctx = cv.getContext('2d');
+  const colors = ['91,75,255', '255,61,139', '46,230,245', '255,184,54'];
+  let W, H, pts = [], dpr = Math.min(window.devicePixelRatio || 1, 2);
+  const mouse = { x: -9999, y: -9999 };
+  function resize(){
+    W = innerWidth; H = innerHeight;
+    cv.width = W * dpr; cv.height = H * dpr; cv.style.width = W + 'px'; cv.style.height = H + 'px';
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    const n = Math.min(110, Math.floor(W * H / 14000));
+    pts = Array.from({ length: n }, () => ({
+      x: Math.random() * W, y: Math.random() * H,
+      vx: (Math.random() - .5) * .45, vy: (Math.random() - .5) * .45,
+      r: Math.random() * 1.8 + .8, c: colors[Math.floor(Math.random() * colors.length)]
+    }));
+  }
+  addEventListener('resize', resize);
+  addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; });
+  resize();
+  const LINK = 130;
+  function draw(){
+    ctx.clearRect(0, 0, W, H);
+    for (let i = 0; i < pts.length; i++) {
+      const p = pts[i];
+      if (!reduce) {
+        p.x += p.vx; p.y += p.vy;
+        if (p.x < 0 || p.x > W) p.vx *= -1;
+        if (p.y < 0 || p.y > H) p.vy *= -1;
+        const dx = p.x - mouse.x, dy = p.y - mouse.y, d = Math.hypot(dx, dy);
+        if (d < 110) { p.x += dx / d * 1.2; p.y += dy / d * 1.2; }
+      }
+      ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${p.c},.85)`; ctx.fill();
+      for (let j = i + 1; j < pts.length; j++) {
+        const q = pts[j], d = Math.hypot(p.x - q.x, p.y - q.y);
+        if (d < LINK) {
+          ctx.strokeStyle = `rgba(${p.c},${(1 - d / LINK) * .28})`;
+          ctx.lineWidth = .8;
+          ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(q.x, q.y); ctx.stroke();
+        }
+      }
+    }
+    if (!reduce) requestAnimationFrame(draw);
+  }
+  draw();
+})();
+</script>
+</body>
+</html>
